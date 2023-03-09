@@ -1,0 +1,144 @@
+// example of what the code could look like:
+
+import Foundation
+
+class Alarm {
+    let wakeUpTime: Date
+    var didWakeUp: Bool = false
+    
+    init(wakeUpTime: Date) {
+        self.wakeUpTime = wakeUpTime
+    }
+    
+    func checkIfWokeUp() {
+        let currentTime = Date()
+        if currentTime >= wakeUpTime {
+            didWakeUp = true
+        }
+    }
+    
+    func sendAccountabilityMessage() {
+        if !didWakeUp {
+            // Send a message to a friend or post on social media
+            // to hold the user accountable for not waking up
+        }
+    }
+}
+
+// Example usage
+let alarm = Alarm(wakeUpTime: Date(timeIntervalSinceNow: 10))
+alarm.checkIfWokeUp()
+alarm.sendAccountabilityMessage()
+
+// In this code snippet, we define an Alarm class that has a wakeUpTime property and a didWakeUp Boolean flag to keep track of whether the user woke up on time. 
+// The checkIfWokeUp() method checks whether the current time is later than the wakeUpTime, and sets didWakeUp to true if it is.
+// The sendAccountabilityMessage() method sends a message to a friend or posts on social media if didWakeUp is still false.
+
+// EXPANDED CODE BELOW
+
+
+import SwiftUI
+
+struct ContentView: View {
+    @State var alarmTime: Date = Date()
+    @State var isAlarmSet: Bool = false
+    
+    var body: some View {
+        VStack {
+            Text("Alarm Clock")
+                .font(.largeTitle)
+            
+            if isAlarmSet {
+                Text("Alarm set for \(formattedAlarmTime)")
+                    .font(.headline)
+                    .foregroundColor(.green)
+            } else {
+                Text("Alarm not set")
+                    .font(.headline)
+                    .foregroundColor(.red)
+            }
+            
+            DatePicker("Set alarm time", selection: $alarmTime, displayedComponents: .hourAndMinute)
+                .datePickerStyle(WheelDatePickerStyle())
+            
+            HStack {
+                Button(action: setAlarm) {
+                    Text("Set Alarm")
+                }
+                .disabled(isAlarmSet)
+                
+                Button(action: cancelAlarm) {
+                    Text("Cancel Alarm")
+                }
+                .disabled(!isAlarmSet)
+            }
+        }
+        .padding()
+    }
+    
+    var formattedAlarmTime: String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter.string(from: alarmTime)
+    }
+    
+    func setAlarm() {
+        let newAlarm = Alarm(wakeUpTime: alarmTime)
+        newAlarm.startCheckingIfWokeUp()
+        isAlarmSet = true
+    }
+    
+    func cancelAlarm() {
+        Alarm.current?.stopCheckingIfWokeUp()
+        isAlarmSet = false
+    }
+}
+
+class Alarm {
+    let wakeUpTime: Date
+    var didWakeUp: Bool = false
+    
+    static var current: Alarm?
+    var timer: Timer?
+    
+    init(wakeUpTime: Date) {
+        self.wakeUpTime = wakeUpTime
+        Alarm.current = self
+    }
+    
+    func startCheckingIfWokeUp() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            self.checkIfWokeUp()
+        }
+    }
+    
+    func stopCheckingIfWokeUp() {
+        timer?.invalidate()
+        sendAccountabilityMessage()
+    }
+    
+    func checkIfWokeUp() {
+        let currentTime = Date()
+        if currentTime >= wakeUpTime {
+            didWakeUp = true
+            stopCheckingIfWokeUp()
+        }
+    }
+    
+    func sendAccountabilityMessage() {
+        if !didWakeUp {
+            // Send a message to a friend or post on social media
+            // to hold the user accountable for not waking up
+            print("Accountability message sent")
+        }
+    }
+}
+
+@main
+struct AlarmClockApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
