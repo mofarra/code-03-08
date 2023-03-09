@@ -1,0 +1,92 @@
+// My Answers/ Solutions to practice problems i found on W3 Schools and other swift practice resources:
+
+func addNumbers(_ a: Int, _ b: Int) -> Int {
+    return a + b
+}
+
+//The function takes two integer parameters, a and b, and returns their sum as an integer. The -> Int specifies that the function returns an integer.
+
+let sum = addNumbers(3, 5)
+print(sum) // Output: 8
+
+//This would call the addNumbers function with the arguments 3 and 5, and assign the result to the constant sum. The print statement would then output 8.
+........................................................................................................................................................................
+
+func average(_ numbers: [Int]) -> Double {
+    let sum = numbers.reduce(0, +)
+    return Double(sum) / Double(numbers.count)
+}
+//average is the name of the function, and it takes a single parameter named numbers, which is an array of integers. 
+
+let numbers = [2, 4, 6, 8, 10]
+let avg = average(numbers)
+print(avg) // Output: 6.0
+
+//This would call the average function with the numbers array as an argument, and assign the result to the constant avg. 
+//The print statement would then output 6.0, which is the average value of the numbers in the array.
+........................................................................................................................................................................
+func countUniqueCharacters(in string: String) -> Int {
+    var characterCount = [Character: Int]()
+    
+    for char in string {
+        characterCount[char, default: 0] += 1
+    }
+    
+    return characterCount.count
+}
+// function uses a dictionary (characterCount) to keep track of the count of each character in the input string. 
+// We iterate over each character in the input string using a for loop, and for each character, we increment its count in the dictionary using the += operator.
+
+let string = "hello, world!"
+let count = countUniqueCharacters(in: string)
+print(count) // Output: 10
+
+//This would call the countUniqueCharacters function with the string argument, and assign the result to the constant count. 
+//The print statement would then output 10, which is the count of unique characters in the input string.
+........................................................................................................................................................................
+func countNumbers(_ numbers: [Int]) -> [Int: (count: Int, indices: [Int])] {
+    var numberCount = [Int: (count: Int, indices: [Int])]()
+    
+    for (index, number) in numbers.enumerated() {
+        if let (count, indices) = numberCount[number] {
+            numberCount[number] = (count + 1, indices + [index])
+        } else {
+            numberCount[number] = (1, [index])
+        }
+    }
+    
+    return numberCount
+}
+//function uses a dictionary (numberCount) to keep track of the count of each number in the input array and the indices at which they occur. 
+// We iterate over each number in the input array using enumerated() method to also track the index of each number, and for each number, we update its count 
+
+let numbers = [1, 2, 3, 2, 1, 4, 5, 4, 4]
+let count = countNumbers(numbers)
+print(count) // Output: [5: (count: 1, indices: [6]), 2: (count: 2, indices: [1, 3]), 3: (count: 1, indices: [2]), 1: (count: 2, indices: [0, 4]), 4: (count: 3, indices: [5, 7, 8])]
+
+// This would call the countNumbers function with the numbers argument, and assign the result to the constant count. 
+// The print statement would then output the count and indices of each number in the input array.
+........................................................................................................................................................................
+func longestCommonPrefix(_ strings: [String]) -> String {
+    guard !strings.isEmpty else { return "" }
+    
+    var prefix = strings[0]
+    
+    for i in 1..<strings.count {
+        while !strings[i].hasPrefix(prefix) {
+            prefix = String(prefix.prefix(prefix.count - 1))
+            if prefix.isEmpty { return "" }
+        }
+    }
+    
+    return prefix
+}
+//The function initializes a variable prefix to the first string in the input array. 
+// It then iterates over the rest of the strings in the input array using a for loop
+
+let strings = ["apple", "app", "apartment", "append"]
+let prefix = longestCommonPrefix(strings)
+print(prefix) // Output: "ap"
+
+//This would call the longestCommonPrefix function with the strings argument, and assign the result to the constant prefix. \
+//The print statement would then output the longest common prefix of all the strings in the input array.
