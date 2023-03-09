@@ -1,0 +1,78 @@
+*/Event: Anything you click, do, or scroll (when you interact) it's an event 
+
+You need to have a function for an event to take place
+
+Functions take in parameters and return results
+
+Control view approach: 
+Control controls the user interface. 
+View is the user interface
+
+Containers: can be used to show multiple UI elements 
+
+V stack 
+H stack
+Z stack(overlay)
+
+Data types:
+Decimal:Double
+String: String
+Boolean:
+Cosnt:
+
+Structure names starr with capital
+Variable names are camelCase
+Click something - event
+functions and methods are the same
+Control View Approach - user interface, code controls the user interface
+Structures - content view and contentview_preview
+contentview_preview - will not get into your final app, only there for the simulator on the right of the screen
+Putting dots because that’s an instance of a structure we’re creating
+After dots sets a property of a structure we’ve created
+How to add an image:
+Image()
+Click on assets, drag those images in
+Vstacks - images above of each other
+Hstacks - next to each other
+Z-stack - images on top of each other
+Top right there is a plus sign, this is the library with code snippets.
+Find V stack in library, select not the lazy v stack
+Drag it into the code, then copy and paste the image (within the code) inside the code.
+Storyboard is a point and click tool, you lose how it’s integrated with the code
+Each structure you can only have one UI element 
+
+Variables: storage location that holds a value that can change over time. Variables are declared using the "var" keyword and assigned a value, which can be any data type, such as numbers, strings, arrays, or structures
+
+Properties: variables and constant declarations within a structure
+
+Functions: take in parameters and return results. They are reusable parts of code
+
+Methods: Functions inside a structure are called 
+
+Swift Structures: Structures can be used to represent a view (e.g., screen) or a process (e.g., fetching data from a database or storing it). Includes properties and methods
+
+
+Lazy vstack only loads as you scroll. It is lazy and doesn't actively use its memory to load everything 
+
+EnvironmentObject makes the variable public so all pages can see it
+
+@Published var modules = [Module]() - last bracket is how we create instance
+
+While loop only executes if true, dowhile executes at least once
+
+Trycatch what is it and how does it look? try()?
+
+When doing a button with a label, the code for the button is just for the click (the action) while code for label is for the image/visual of button
+
+Decodable allows the Module type to be initialized from external data (like JSON)
+
+Identifiable ensures that each Module instance has a unique identifier that can be used to manage and update the UI
+*/
+
+
+
+
+
+
+
+
